@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUXTECH — Công nghệ đỉnh cao</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+    :root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--gold:#c9a84c;--gold2:#e8c96a;--text:#f0f0f0;--text2:#a0a0b0;--border:#2a2a3a}
+    body{background:var(--bg);color:var(--text)}
+    nav{background:rgba(10,10,15,0.97);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
+    .logo{font-size:20px;font-weight:500;color:var(--gold);letter-spacing:2px}
+    .nav-links{display:flex;gap:2rem}
+    .nav-links a{color:var(--text2);text-decoration:none;font-size:14px;cursor:pointer;transition:color .2s}
+    .nav-links a:hover{color:var(--gold)}
+    .cart-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;transition:all .2s}
+    .cart-btn:hover{background:var(--gold);color:#000}
+    .badge{background:var(--gold);color:#000;border-radius:50%;width:18px;height:18px;font-size:11px;display:inline-flex;align-items:center;justify-content:center;font-weight:500}
+    .hero{background:linear-gradient(135deg,#0a0a0f 0%,#1a1020 50%,#0a0f1a 100%);padding:5rem 2rem;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%);pointer-events:none}
+    .hero-tag{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:11px;padding:4px 14px;border-radius:20px;letter-spacing:2px;margin-bottom:1.5rem}
+    .hero h1{font-size:48px;font-weight:500;line-height:1.2;margin-bottom:1rem;background:linear-gradient(135deg,#f0f0f0,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero p{color:var(--text2);font-size:16px;max-width:500px;margin:0 auto 2rem}
+    .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-primary{background:var(--gold);color:#000;border:none;padding:12px 28px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:500;transition:all .2s}
+    .btn-primary:hover{background:var(--gold2);transform:translateY(-1px)}
+    .btn-outline{background:none;color:var(--gold);border:1px solid var(--gold);padding:12px 28px;border-radius:8px;font-size:14px;cursor:pointer;transition:all .2s}
+    .btn-outline:hover{background:rgba(201,168,76,0.1)}
+    .section{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+    .section-title{font-size:13px;letter-spacing:3px;color:var(--gold);margin-bottom:.5rem}
+    .section-h2{font-size:28px;font-weight:500;margin-bottom:2.5rem}
+    .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:3rem}
+    .cat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .2s}
+    .cat:hover,.cat.active{border-color:var(--gold);background:rgba(201,168,76,0.05)}
+    .cat-icon{font-size:28px;margin-bottom:.5rem}
+    .cat-name{font-size:13px;color:var(--text2)}
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .product-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s;cursor:pointer}
+    .product-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+    .product-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:56px;background:var(--bg3)}
+    .product-info{padding:1rem}
+    .product-name{font-size:14px;font-weight:500;margin-bottom:4px}
+    .product-spec{font-size:12px;color:var(--text2);margin-bottom:.75rem}
+    .product-bottom{display:flex;align-items:center;justify-content:space-between}
+    .product-price{font-size:16px;font-weight:500;color:var(--gold)}
+    .add-btn{background:var(--gold);color:#000;border:none;border-radius:6px;width:30px;height:30px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:500;transition:all .2s}
+    .add-btn:hover{background:var(--gold2);transform:scale(1.1)}
+    .cart-panel{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-top:2rem}
+    .cart-panel h3{font-size:16px;font-weight:500;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+    .cart-empty{color:var(--text2);font-size:14px;text-align:center;padding:2rem}
+    .cart-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:14px}
+    .cart-item-price{color:var(--gold)}
+    .remove-btn{background:none;border:none;color:var(--text2);cursor:pointer;font-size:16px;padding:0 4px}
+    .remove-btn:hover{color:#e24b4a}
+    .cart-total{display:flex;justify-content:space-between;margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border);font-weight:500}
+    .cart-total span:last-child{color:var(--gold)}
+    .checkout-btn{width:100%;background:var(--gold);color:#000;border:none;padding:12px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;margin-top:1rem;transition:all .2s}
+    .checkout-btn:hover{background:var(--gold2)}
+    .contact-section{background:var(--bg2);border-top:1px solid var(--border);padding:4rem 2rem}
+    .contact-inner{max-width:600px;margin:0 auto;text-align:center}
+    .contact-form{display:grid;gap:12px;margin-top:2rem;text-align:left}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .contact-form input,.contact-form textarea{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:14px;width:100%;transition:border .2s}
+    .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold)}
+    .contact-form textarea{height:100px;resize:none}
+    .send-btn{background:var(--gold);color:#000;border:none;padding:12px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+    .send-btn:hover{background:var(--gold2)}
+    footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text-align:center}
+    .footer-inner{max-width:800px;margin:0 auto}
+    .footer-logo{font-size:18px;color:var(--gold);letter-spacing:2px;margin-bottom:.5rem}
+    .footer-links{display:flex;justify-content:center;gap:2rem;margin:1rem 0;flex-wrap:wrap}
+    .footer-links a{color:var(--text2);font-size:13px;text-decoration:none;cursor:pointer}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-copy{color:var(--text2);font-size:12px;margin-top:1rem}
+    .socials{display:flex;justify-content:center;gap:12px;margin:.75rem 0}
+    .social{border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:14px;color:var(--text2)}
+    .social:hover{border-color:var(--gold);color:var(--gold)}
+    .msg{display:none;background:rgba(201,168,76,0.1);border:1px solid var(--gold);border-radius:8px;padding:12px;color:var(--gold);font-size:14px;text-align:center;margin-top:12px}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">LUXTECH</div>
+  <div class="nav-links">
+    <a onclick="scrollTo({top:0,behavior:'smooth'})">Trang chủ</a>
+    <a onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Sản phẩm</a>
+    <a onclick="document.getElementById('cart-section').scrollIntoView({behavior:'smooth'})">Giỏ hàng</a>
+    <a onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Liên hệ</a>
+  </div>
+  <button class="cart-btn" onclick="document.getElementById('cart-section').scrollIntoView({behavior:'smooth'})">
+    Giỏ hàng <span class="badge" id="cart-count">0</span>
+  </button>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">CÔNG NGHỆ CAO CẤP</div>
+  <h1>Trải nghiệm<br>đỉnh cao công nghệ</h1>
+  <p>Khám phá bộ sưu tập thiết bị điện tử hàng đầu thế giới — sang trọng, mạnh mẽ, tinh tế.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Khám phá ngay</button>
+    <button class="btn-outline" onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Tư vấn miễn phí</button>
+  </div>
+</div>
+
+<div class="section" id="products-section">
+  <div class="section-title">BỘ SƯU TẬP</div>
+  <div class="section-h2">Sản phẩm nổi bật</div>
+  <div class="cats">
+    <div class="cat active" onclick="filterCat('all',this)"><div class="cat-icon">✦</div><div class="cat-name">Tất cả</div></div>
+    <div class="cat" onclick="filterCat('phone',this)"><div class="cat-icon">📱</div><div class="cat-name">Điện thoại</div></div>
+    <div class="cat" onclick="filterCat('laptop',this)"><div class="cat-icon">💻</div><div class="cat-name">Laptop</div></div>
+    <div class="cat" onclick="filterCat('audio',this)"><div class="cat-icon">🎧</div><div class="cat-name">Âm thanh</div></div>
+    <div class="cat" onclick="filterCat('watch',this)"><div class="cat-icon">⌚</div><div class="cat-name">Đồng hồ</div></div>
+  </div>
+  <div class="products" id="product-grid"></div>
+</div>
+
+<div class="section" id="cart-section">
+  <div class="section-title">GIỎ HÀNG</div>
+  <div class="section-h2">Đơn hàng của bạn</div>
+  <div class="cart-panel">
+    <h3>Sản phẩm đã chọn</h3>
+    <div id="cart-items"><div class="cart-empty">Giỏ hàng trống — hãy thêm sản phẩm bạn muốn!</div></div>
+    <div id="cart-footer" style="display:none">
+      <div class="cart-total"><span>Tổng cộng</span><span id="cart-total-val">0₫</span></div>
+      <button class="checkout-btn" onclick="checkout()">Đặt hàng ngay</button>
+    </div>
+    <div class="msg" id="checkout-msg">Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm nhất. Cảm ơn bạn!</div>
+  </div>
+</div>
+
+<div class="contact-section" id="contact-section">
+  <div class="contact-inner">
+    <div class="section-title" style="text-align:center">LIÊN HỆ</div>
+    <div class="section-h2" style="text-align:center;margin-bottom:.5rem">Tư vấn miễn phí</div>
+    <p style="color:var(--text2);font-size:14px">Chúng tôi sẵn sàng hỗ trợ bạn 24/7</p>
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Họ và tên" id="cf-name"/>
+        <input type="text" placeholder="Số điện thoại" id="cf-phone"/>
+      </div>
+      <input type="email" placeholder="Email của bạn" id="cf-email"/>
+      <textarea placeholder="Bạn cần tư vấn về sản phẩm gì?" id="cf-msg"></textarea>
+      <button class="send-btn" onclick="sendContact()">Gửi yêu cầu tư vấn</button>
+      <div class="msg" id="contact-msg">Yêu cầu đã gửi! Chúng tôi sẽ liên hệ trong vòng 30 phút.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">LUXTECH</div>
+    <p style="color:var(--text2);font-size:13px">Công nghệ đỉnh cao — Dịch vụ hoàn hảo</p>
+    <div class="socials">
+      <div class="social">f</div>
+      <div class="social">in</div>
+      <div class="social">yt</div>
+      <div class="social">tw</div>
+    </div>
+    <div class="footer-links">
+      <a>Giới thiệu</a><a>Chính sách bảo hành</a><a>Đổi trả hàng</a><a>Tuyển dụng</a>
+    </div>
+    <div class="footer-copy">© 2026 LUXTECH. Bảo lưu mọi quyền.</div>
+  </div>
+</footer>
+
+<script>
+const products=[
+  {id:1,cat:'phone',icon:'📱',name:'LuxPhone Pro Max',spec:'6.7" OLED · 256GB · 5G',price:28900000},
+  {id:2,cat:'phone',icon:'📱',name:'LuxPhone SE Ultra',spec:'6.1" AMOLED · 128GB · 5G',price:18500000},
+  {id:3,cat:'laptop',icon:'💻',name:'LuxBook Air Elite',spec:'14" 2K · M3 chip · 16GB RAM',price:42000000},
+  {id:4,cat:'laptop',icon:'💻',name:'LuxBook Pro Studio',spec:'16" 4K · i9 · 32GB RAM · RTX 4070',price:68000000},
+  {id:5,cat:'audio',icon:'🎧',name:'LuxBuds Pro ANC',spec:'Chống ồn · 40h pin · Hi-Res Audio',price:5990000},
+  {id:6,cat:'audio',icon:'🎧',name:'LuxSound Speaker',spec:'360° âm thanh · Loa đôi · Bluetooth 5.3',price:3490000},
+  {id:7,cat:'watch',icon:'⌚',name:'LuxWatch Series X',spec:'AMOLED · GPS · ECG · 7 ngày pin',price:12900000},
+  {id:8,cat:'watch',icon:'⌚',name:'LuxWatch Classic',spec:'Sapphire glass · Thép không gỉ · NFC',price:8500000},
+];
+let cart=[];
+let curCat='all';
+
+function fmt(n){return n.toLocaleString('vi-VN')+'₫'}
+
+function renderProducts(){
+  const grid=document.getElementById('product-grid');
+  const filtered=curCat==='all'?products:products.filter(p=>p.cat===curCat);
+  grid.innerHTML=filtered.map(p=>`
+    <div class="product-card">
+      <div class="product-img">${p.icon}</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-spec">${p.spec}</div>
+        <div class="product-bottom">
+          <div class="product-price">${fmt(p.price)}</div>
+          <button class="add-btn" onclick="addCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterCat(cat,el){
+  curCat=cat;
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts();
+}
+
+function addCart(id){
+  const p=products.find(x=>x.id===id);
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;
+  else cart.push({...p,qty:1});
+  renderCart();
+}
+
+function removeCart(id){
+  cart=cart.filter(x=>x.id!==id);
+  renderCart();
+}
+
+function renderCart(){
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  document.getElementById('cart-count').textContent=cart.reduce((s,x)=>s+x.qty,0);
+  const ci=document.getElementById('cart-items');
+  const cf=document.getElementById('cart-footer');
+  if(cart.length===0){
+    ci.innerHTML='<div class="cart-empty">Giỏ hàng trống — hãy thêm sản phẩm bạn muốn!</div>';
+    cf.style.display='none';
+  } else {
+    ci.innerHTML=cart.map(x=>`
+      <div class="cart-item">
+        <span>${x.icon} ${x.name}${x.qty>1?' x'+x.qty:''}</span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span class="cart-item-price">${fmt(x.price*x.qty)}</span>
+          <button class="remove-btn" onclick="removeCart(${x.id})">✕</button>
+        </span>
+      </div>`).join('');
+    document.getElementById('cart-total-val').textContent=fmt(total);
+    cf.style.display='block';
+  }
+}
+
+function checkout(){
+  cart=[];
+  renderCart();
+  const msg=document.getElementById('checkout-msg');
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',5000);
+}
+
+function sendContact(){
+  const n=document.getElementById('cf-name').value;
+  const p=document.getElementById('cf-phone').value;
+  if(!n||!p){alert('Vui lòng nhập họ tên và số điện thoại!');return;}
+  ['cf-name','cf-phone','cf-email','cf-msg'].forEach(id=>document.getElementById(id).value='');
+  const msg=document.getElementById('contact-msg');
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',5000);
+}
+
+renderProducts();
+</script>
+</body>
+</html>
